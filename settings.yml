@@ -1,3 +1,4 @@
+```yml
 use_default_settings: true
 
 general:
@@ -8,6 +9,8 @@ server:
   secret_key: "change-this-secret-key"
   bind_address: "0.0.0.0"
   port: 8080
+  limiter: false
+  public_instance: false
 
 search:
   safe_search: 0
@@ -21,3 +24,13 @@ outgoing:
 engines:
   - name: duckduckgo
     disabled: false
+
+  - name: wikidata
+    disabled: true
+
+  - name: torch
+    disabled: true
+
+  - name: ahmia
+    disabled: true
+```
