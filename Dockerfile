@@ -1,15 +1,17 @@
 FROM searxng/searxng:latest
 
-# 1. نسخ إعداداتك الحالية
+# نسخ ملف الإعدادات الرئيسي الخاص بك
 COPY ./settings.yml /etc/searxng/settings.yml
 
-# 2. إنشاء ملف limiter.toml مخصص لتعطيل فحص البوتات تماماً داخل السيرفر
+# إنشاء ملف limiter.toml لتعطيل فحص البوتات تماماً داخل الحاوية
 RUN echo '[botdetection]' > /etc/searxng/limiter.toml && \
     echo 'enable = false' >> /etc/searxng/limiter.toml && \
     echo '[botdetection.http_user_agent]' >> /etc/searxng/limiter.toml && \
-    echo 'sh_lock_user_agent = false' >> /etc/searxng/limiter.toml
+    echo 'sh_lock_user_agent = false' >> /etc/searxng/limiter.toml && \
+    echo '[botdetection.ip_limit]' >> /etc/searxng/limiter.toml && \
+    echo 'link_token_allowance = 1000000' >> /etc/searxng/limiter.toml
 
-# 3. إجبار البيئة على قراءة الملفات من المسارات الصحيحة
+# إجبار المحرك على اعتماد المسارات الصحيحة للملفات بشكل نهائي
 ENV SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml
 ENV SEARXNG_LIMITER_PATH=/etc/searxng/limiter.toml
 
