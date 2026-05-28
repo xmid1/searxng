@@ -1,4 +1,3 @@
-```yml
 use_default_settings: true
 
 general:
@@ -9,14 +8,14 @@ server:
   secret_key: "change-this-secret-key"
   bind_address: "0.0.0.0"
   port: 8080
-  limiter: false
   public_instance: false
+  limiter: false
 
 search:
   safe_search: 0
 
-redis:
-  url: false
+valkey:
+  url: redis://default:${{REDIS_PASSWORD}}@redis.railway.internal:6379
 
 outgoing:
   request_timeout: 10.0
@@ -25,12 +24,8 @@ engines:
   - name: duckduckgo
     disabled: false
 
-  - name: wikidata
+  - name: ahmia
     disabled: true
 
   - name: torch
     disabled: true
-
-  - name: ahmia
-    disabled: true
-```
