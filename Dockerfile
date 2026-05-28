@@ -1,3 +1,5 @@
 FROM searxng/searxng:latest
 
-COPY settings.yml /etc/searxng/settings.yml
+USER root
+
+COPY ./settings.yml /etc/searxng/settings.yml
