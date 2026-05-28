@@ -1,26 +1,35 @@
-use_default_settings: true
+use_default_settings: false # تم تغييرها إلى false لتفعيل إعداداتك بالأسفل
 
 general:
   debug: false
   instance_name: "My SearXNG"
 
 server:
-  secret_key: "change-this-secret-key"
+  secret_key: "change-this-secret-key-to-any-long-string"
   bind_address: "0.0.0.0"
   port: 8080
-  public_instance: false
-  limiter: false
+  public_instance: false # إيقاف الوضع العام لمنع حظر الطلبات
+  limiter: false         # إيقاف نظام الحماية تماماً للاستخدام الشخصي البرمي
 
 search:
   safe_search: 0
+  formats:               # تم إضافة هذا القسم للسماح بالـ JSON
+    - html
+    - json
 
 valkey:
-  url: redis://default:${{REDIS_PASSWORD}}@redis.railway.internal:6379
+  # إذا كنت تريد كتابة الباسورد مباشرة ضعها مكان ${{REDIS_PASSWORD}}
+  # أو الأفضل: اترك هذا الحقل فارغاً في الـ YAML، وقم بإنشاء متغير بيئة في Railway 
+  # واسمه SEARXNG_VALKEY_URL وقيمته هي رابط الـ Redis بالكامل.
+  url: redis://default:${REDIS_PASSWORD}@redis.railway.internal:6379
 
 outgoing:
   request_timeout: 10.0
 
 engines:
+  - name: google
+    disabled: false
+
   - name: duckduckgo
     disabled: false
 
